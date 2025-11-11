@@ -1,0 +1,94 @@
+
+There are no discarded input sections
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00010000         xr
+SRAM             0x20000000         0x00005000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x08000000      0x180
+ *(.isr_vectors)
+ .isr_vectors   0x08000000       0x40 Lab2_Startup_file.o
+                0x08000000                vectors
+ *(.text)
+ .text          0x08000040       0x60 Lab2_Startup_file.o
+                0x08000040                DebugMon_Handler
+                0x08000040                HardFault_Handler
+                0x08000040                SysTick_Handler
+                0x08000040                PendSV_Handler
+                0x08000040                NMI_Handler
+                0x08000040                UsageFault_Handler
+                0x08000040                SVC_Handler
+                0x08000040                Default_Handler
+                0x08000040                MemManage_Handler
+                0x08000040                BusFault_Handler
+                0x08000046                Reset_Handler
+ .text          0x080000a0       0x7c main.o
+                0x080000a0                main
+ *(.rodata)
+ .rodata        0x0800011c       0x64 main.o
+                0x0800011c                global_array_const
+                0x08000180                        . = ALIGN (0x4)
+                0x08000180                        _End_text = .
+
+.glue_7         0x08000180        0x0
+ .glue_7        0x08000180        0x0 linker stubs
+
+.glue_7t        0x08000180        0x0
+ .glue_7t       0x08000180        0x0 linker stubs
+
+.vfp11_veneer   0x08000180        0x0
+ .vfp11_veneer  0x08000180        0x0 linker stubs
+
+.v4_bx          0x08000180        0x0
+ .v4_bx         0x08000180        0x0 linker stubs
+
+.iplt           0x08000180        0x0
+ .iplt          0x08000180        0x0 Lab2_Startup_file.o
+
+.rel.dyn        0x08000180        0x0
+ .rel.iplt      0x08000180        0x0 Lab2_Startup_file.o
+
+.data           0x20000000       0x64 load address 0x08000180
+                0x20000000                        _Start_data = .
+ *(.data)
+ .data          0x20000000        0x0 Lab2_Startup_file.o
+ .data          0x20000000       0x64 main.o
+                0x20000000                global_array
+                0x20000064                        . = ALIGN (0x4)
+                0x20000064                        _End_data = .
+
+.igot.plt       0x20000064        0x0 load address 0x080001e4
+ .igot.plt      0x20000064        0x0 Lab2_Startup_file.o
+
+.bss            0x20000064        0x4 load address 0x080001e4
+                0x20000064                        _Start_bss = .
+ *(.bss)
+ .bss           0x20000064        0x0 Lab2_Startup_file.o
+ .bss           0x20000064        0x4 main.o
+                0x20000064                unInitilized_variable
+                0x20000068                        . = ALIGN (0x4)
+ *(COMMON)
+                0x20000068                        . = ALIGN (0x4)
+                0x20000068                        _End_bss = .
+LOAD Lab2_Startup_file.o
+LOAD main.o
+OUTPUT(Lab2_BluePill.elf elf32-littlearm)
+LOAD linker stubs
+
+.comment        0x00000000       0x46
+ .comment       0x00000000       0x46 Lab2_Startup_file.o
+                                 0x47 (size before relaxing)
+ .comment       0x00000046       0x47 main.o
+
+.ARM.attributes
+                0x00000000       0x2d
+ .ARM.attributes
+                0x00000000       0x2d Lab2_Startup_file.o
+ .ARM.attributes
+                0x0000002d       0x2d main.o
