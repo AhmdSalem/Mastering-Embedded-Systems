@@ -1,10 +1,10 @@
-/*  This Startup file is for Lab 2 - Unit 3 for Mastering Embedded Systems Diploma  */
+/*  This Startup file is for Lab 3 - Unit 3 for Mastering Embedded Systems Diploma  */
 
-// By Eng: Ahmed Salem , 11 November 2025
+// By Eng: Ahmed Salem , 19 November 2025
 
 /*
- - Some startup files are processor dependent, this one is for ARM Cortex-M3
- - Since Arm-Cortex-M3 Directly loads the address of address at entry point, it is .c file
+ - Some startup files are processor dependent, this one is for ARM Cortex-M4
+ - Since Arm-Cortex-M4 Directly loads the address of address at entry point, it is .c file
  - Startup code set up the vector table, initialize .data and .bss segments, and call main
 */
 
@@ -12,7 +12,7 @@
 // to place it in the .isr_vectors section using __attribute__((section(".isr_vectors")))
 
 #define SRAM_START 0x20000000U
-#define SRAM_SIZE  (20U * 1024U)            // 20 KB
+#define SRAM_SIZE  512U * 1024U * 1024U           // 512 MB
 #define SRAM_END   ((SRAM_START) + (SRAM_SIZE))
 
 #define STACK_START SRAM_END
@@ -26,7 +26,7 @@ void Reset_Handler(void);
 
 void Default_Handler(void)
 {
-    while (1);
+    Reset_Handler();
 }
 
 void NMI_Handler                (void)__attribute__ ((weak, alias("Default_Handler")));
