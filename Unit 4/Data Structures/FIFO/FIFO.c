@@ -36,9 +36,9 @@ return element
 End
 
 */
-FIFO_Status_t FIFO_init(FIFO_Buffer_t* fifo, unsigned int length)
+FIFO_Status_t FIFO_init(FIFO_Buffer_t* fifo, int* buffer, unsigned int length)
 {
-    fifo->buffer = fifo;
+    fifo->buffer = buffer;
     fifo->length = length;
     fifo->count = 0;
     fifo->front = -1;
@@ -77,7 +77,7 @@ FIFO_Status_t FIFO_dequeue(FIFO_Buffer_t* fifo, int* item)
 
     *item = fifo->buffer[fifo->front];
     printf("Dequeued: %d\n", *item);
-    
+
     if (fifo->front == fifo->rear)
     {
         fifo->front = -1;

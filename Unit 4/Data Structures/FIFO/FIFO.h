@@ -18,7 +18,7 @@ typedef enum {
     FIFO_NULL
 } FIFO_Status_t;
 
-FIFO_Status_t FIFO_init(FIFO_Buffer_t* fifo, unsigned int length);
+FIFO_Status_t FIFO_init(FIFO_Buffer_t* fifo, int* buffer, unsigned int length);
 FIFO_Status_t FIFO_enqueue(FIFO_Buffer_t* fifo, int item);
 FIFO_Status_t FIFO_dequeue(FIFO_Buffer_t* fifo, int* item);
 FIFO_Status_t FIFO_is_full(FIFO_Buffer_t* fifo);
